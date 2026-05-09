@@ -4,7 +4,7 @@ A robust, production-ready Payment Gateway UI built with **Next.js (App Router)*
 
 ## 🚀 Live Demo & Repository
 - **Repository:** [GitHub Link](https://github.com/shuklaG8/payment-gateway-nextjs.git)
-- **Live Demo:** https://payment-gateway-nextjs-six.vercel.app/
+- **Live Demo:** [Live Demo](https://payment-gateway-nextjs-six.vercel.app/)
 
 ---
 
@@ -82,6 +82,20 @@ A robust, production-ready Payment Gateway UI built with **Next.js (App Router)*
 
 4. **Open your browser:**
    Navigate to [http://localhost:3000](http://localhost:3000) to view the application.
+
+## 📝 Assumptions Made
+- **Local Storage vs Database:** As no backend database was specified, I used the browser's `localStorage` (via a custom Redux middleware) to persist transaction history across page reloads.
+- **Timeout Logic:** The assignment specified the mock backend takes 8 seconds for a timeout, but the frontend must abort at 6 seconds. I assumed the intent was to rely on `AbortController` throwing an `AbortError` on the client, which is caught and dispatched as a Timeout state to Redux, rather than waiting for a backend response.
+- **Retry Limitation:** I interpreted "limit retries to a maximum of 3 attempts" as 1 initial attempt + 2 retry attempts. After 3 total failures, the payment form becomes fully disabled for that specific transaction ID.
+
+---
+
+## 🚀 What I Would Improve Given More Time
+1. **Comprehensive Testing Suite:** I would implement unit testing using **Jest** and **React Testing Library** for the Redux logic and Form validations, alongside **Cypress/Playwright** for rigorous E2E testing of the idempotency and timeout flows.
+2. **Schema Validation (Zod):** While I built lightweight, custom validation functions to minimize external dependencies, a larger application would benefit from **Zod** schemas paired with `react-hook-form` for robust, type-safe validation on both the client and the mock API.
+3. **Advanced Animations:** The current UI utilizes native Tailwind CSS transitions and transforms. Given more time, I would introduce **Framer Motion** for highly orchestrated, fluid micro-interactions, especially for the success state and list-item additions in the history panel.
+4. **Enhanced API Mocking:** I would expand the `/api/pay` mock to simulate specific bank decline codes (e.g., *Insufficient Funds*, *Do Not Honor*, *Expired Card*) and map them to specific UI recovery instructions for the user.
+5. **i18n & Localization:** Adding support for multi-language translations and auto-detecting the user's locale to format dates and currency strings appropriately.
 
 ---
 
