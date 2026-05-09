@@ -7,7 +7,7 @@ export interface PaymentFormValues {
     cardNumber: string;
     expiry: string;
     cvv: string;
-    amount: number | string;
+    amount: number;
     currency: Currency;
 }
 
