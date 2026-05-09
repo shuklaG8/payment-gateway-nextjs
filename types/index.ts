@@ -1,4 +1,4 @@
-export type PaymentStatus = 'idle' | 'processing' | 'succeeded' | 'failed' | 'timeout';
+export type PaymentStatus = 'idle' | 'processing' | 'success' | 'failed' | 'timeout';
 export type CardType = 'visa' | 'mastercard' | 'amex' | 'unknown';
 export type Currency = 'INR' | 'USD' | 'EUR' | 'GBP' | 'JPY';
 

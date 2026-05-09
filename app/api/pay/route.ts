@@ -1,4 +1,4 @@
-import { NextResponse, NextRequest } from 'next/server';
+import { NextRequest, NextResponse } from 'next/server';
 
 const FAILURE_REASONS = [
     'Insufficient funds',
@@ -13,7 +13,7 @@ function sleep(ms: number): Promise<void> {
     return new Promise(resolve => setTimeout(resolve, ms));
 }
 
-export async function POST(req: NextResponse) {
+export async function POST(req: NextRequest) {
     const body = await req.json();
 
     const { transactionId } = body;
