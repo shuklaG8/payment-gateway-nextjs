@@ -1,6 +1,6 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { PaymentStatus, Transaction } from '@/types';
-import { loadTransactions, saveTransactions } from '@/utils/localStorage';
+import { loadTransactions } from '@/utils/localStorage';
 
 interface PaymentState {
   status: PaymentStatus;
@@ -46,7 +46,6 @@ const paymentSlice = createSlice({
       } else {
         state.history.unshift(action.payload);
       }
-      saveTransactions(state.history);
     },
     paymentFailed(
       state,
@@ -60,7 +59,6 @@ const paymentSlice = createSlice({
       } else {
         state.history.unshift(action.payload.transaction);
       }
-      saveTransactions(state.history);
     },
     paymentTimeout(state, action: PayloadAction<Transaction>) {
       state.status = 'timeout';
@@ -70,7 +68,6 @@ const paymentSlice = createSlice({
       } else {
         state.history.unshift(action.payload);
       }
-      saveTransactions(state.history);
     },
     resetPayment(state) {
       state.status = 'idle';

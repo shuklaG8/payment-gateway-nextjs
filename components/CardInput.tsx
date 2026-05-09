@@ -3,7 +3,7 @@
 import { useId } from 'react';
 import { CardType } from '@/types';
 import { formatCardNumber, detectCardType, getCvvMaxLength } from '@/utils/cardUtils';
-import { validateCardNumber, validateCvv, validateExpiry } from '@/utils/validators';
+
 
 function VisaBadge() {
   return (
@@ -86,11 +86,12 @@ export function CardNumberInput({ value, cardType, error, touched, onChange, onB
           placeholder="4242 4242 4242 4242"
           aria-describedby={touched && error ? errId : undefined}
           aria-invalid={touched && !!error}
-          className={`w-full px-3 py-2 pr-16 rounded-lg border text-sm font-mono
-            focus:outline-none focus:ring-2 focus:ring-blue-500 transition-colors
+          className={`w-full px-4 py-2.5 pr-16 rounded-xl border text-sm font-mono font-medium transition-all duration-200
+            focus:outline-none focus:ring-2 focus:ring-blue-500/50 focus:border-blue-500
+            hover:border-blue-400 cursor-text
             ${touched && error
-              ? 'border-red-500 bg-red-50 text-red-900'
-              : 'border-gray-300 bg-white text-gray-900'
+              ? 'border-red-400 bg-red-50/50 text-red-900 focus:ring-red-500/50'
+              : 'border-slate-200 bg-slate-50/50 text-slate-900 hover:bg-white'
             }`}
         />
         {cardType !== 'unknown' && (
@@ -143,11 +144,12 @@ export function ExpiryInput({ value, error, touched, onChange, onBlur }: ExpiryP
         placeholder="08/28"
         aria-describedby={touched && error ? errId : undefined}
         aria-invalid={touched && !!error}
-        className={`w-full px-3 py-2 rounded-lg border text-sm
-          focus:outline-none focus:ring-2 focus:ring-blue-500 transition-colors
+        className={`w-full px-4 py-2.5 rounded-xl border text-sm font-medium transition-all duration-200
+          focus:outline-none focus:ring-2 focus:ring-blue-500/50 focus:border-blue-500
+          hover:border-blue-400 cursor-text
           ${touched && error
-            ? 'border-red-500 bg-red-50 text-red-900'
-            : 'border-gray-300 bg-white text-gray-900'
+            ? 'border-red-400 bg-red-50/50 text-red-900 focus:ring-red-500/50'
+            : 'border-slate-200 bg-slate-50/50 text-slate-900 hover:bg-white'
           }`}
       />
       {touched && error && (
@@ -199,11 +201,12 @@ export function CvvInput({ value, cardType, error, touched, onChange, onBlur }: 
           placeholder={cardType === 'amex' ? '••••' : '•••'}
           aria-describedby={touched && error ? errId : undefined}
           aria-invalid={touched && !!error}
-          className={`w-full px-3 py-2 rounded-lg border text-sm
-            focus:outline-none focus:ring-2 focus:ring-blue-500 transition-colors
+          className={`w-full px-4 py-2.5 rounded-xl border text-sm font-medium transition-all duration-200
+            focus:outline-none focus:ring-2 focus:ring-blue-500/50 focus:border-blue-500
+            hover:border-blue-400 cursor-text
             ${touched && error
-              ? 'border-red-500 bg-red-50 text-red-900'
-              : 'border-gray-300 bg-white text-gray-900'
+              ? 'border-red-400 bg-red-50/50 text-red-900 focus:ring-red-500/50'
+              : 'border-slate-200 bg-slate-50/50 text-slate-900 hover:bg-white'
             }`}
         />
         {/* Lock icon */}

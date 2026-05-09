@@ -1,6 +1,6 @@
 'use client';
 
-import { useEffect, useRef, useState } from 'react';
+import { useEffect, useRef } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { RootState, AppDispatch } from '@/store/store';
 import { initHistory } from '@/store/paymentSlice';
@@ -23,26 +23,26 @@ export default function Home() {
   } = usePayment();
 
   const savedValues = useRef<PaymentFormValues | null>(null);
-  const [txnId, setTxnId] = useState<string>(() => crypto.randomUUID());
 
   useEffect(() => {
     dispatch(initHistory());
   }, [dispatch]);
 
-  function handleSubmit(values: PaymentFormValues, transactionId: string) {
+  function handleSubmit(values: PaymentFormValues) {
     savedValues.current = values;
-    setTxnId(transactionId);
-    submitPayment(values, transactionId);
+    // Generate a new transaction ID only for the first attempt
+    const newTxnId = crypto.randomUUID();
+    submitPayment(values, newTxnId);
   }
 
-  function handleRetry(values: PaymentFormValues) {
-    savedValues.current = values;
-    submitPayment(values, txnId);
+  function handleRetry() {
+    if (savedValues.current && currentTransactionId) {
+      submitPayment(savedValues.current, currentTransactionId);
+    }
   }
 
   function handleReset() {
     savedValues.current = null;
-    setTxnId(crypto.randomUUID());
     reset();
   }
 
@@ -51,12 +51,12 @@ export default function Home() {
   const showForm = status === 'idle' || status === 'failed' || status === 'timeout';
 
   return (
-    <main className="min-h-screen bg-gray-100 py-10 px-4">
+    <main className="min-h-screen bg-gradient-to-br from-slate-50 via-blue-50/40 to-slate-200 py-12 px-4 text-slate-800 font-sans selection:bg-blue-200">
       <div className="max-w-5xl mx-auto">
 
-        <div className="mb-8 text-center">
-          <h1 className="text-3xl font-bold text-gray-900">Payment Gateway</h1>
-          <p className="text-gray-500 text-sm mt-1">Secure simulated payment flow</p>
+        <div className="mb-10 text-center space-y-2 transform transition-all duration-700 translate-y-0 opacity-100">
+          <h1 className="text-4xl font-extrabold tracking-tight text-slate-900 drop-shadow-sm">Payment Gateway</h1>
+          <p className="text-slate-500 text-sm font-medium uppercase tracking-widest">Secure simulated payment flow</p>
         </div>
 
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
@@ -64,14 +64,14 @@ export default function Home() {
           <div className="space-y-6">
 
             {showStatus && (
-              <div className="bg-white rounded-2xl shadow-md p-6">
+              <div className="w-full bg-white/90 backdrop-blur-xl rounded-3xl shadow-[0_8px_30px_rgb(0,0,0,0.04)] border border-white/50 p-8 transform transition-all duration-500 hover:-translate-y-1 hover:shadow-[0_8px_30px_rgb(0,0,0,0.08)]">
                 <StatusScreen
                   status={status}
                   failureReason={failureReason}
                   retryCount={retryCount}
                   canRetry={canRetry}
                   MAX_RETRIES={MAX_RETRIES}
-                  onRetry={() => savedValues.current && handleRetry(savedValues.current)}
+                  onRetry={handleRetry}
                   onReset={handleReset}
                 />
               </div>
@@ -80,12 +80,10 @@ export default function Home() {
             {showForm && (
               <PaymentForm
                 onSubmit={handleSubmit}
-                onRetry={handleRetry}
                 isProcessing={isProcessing}
                 retryCount={retryCount}
                 canRetry={canRetry}
                 MAX_RETRIES={MAX_RETRIES}
-                currentTransactionId={currentTransactionId}
               />
             )}
           </div>

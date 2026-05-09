@@ -3,7 +3,7 @@
 import { useDispatch, useSelector } from 'react-redux';
 import { RootState, AppDispatch } from '@/store/store';
 import { selectTransaction } from '@/store/paymentSlice';
-import { Transaction, PaymentStatus } from '@/types';
+import { PaymentStatus } from '@/types';
 
 const STATUS_STYLES: Record<PaymentStatus, string> = {
   success: 'bg-green-100 text-green-700',
@@ -37,12 +37,12 @@ export default function TransactionHistory() {
   if (selectedTransaction) {
     const t = selectedTransaction;
     return (
-      <div className="bg-white rounded-2xl shadow-md p-6 space-y-4">
+      <div className="bg-white/90 backdrop-blur-xl rounded-3xl shadow-[0_8px_30px_rgb(0,0,0,0.04)] border border-white/50 p-8 space-y-5 transition-all duration-300">
         <button
           onClick={() => dispatch(selectTransaction(null))}
-          className="text-sm text-blue-600 hover:underline flex items-center gap-1"
+          className="text-sm font-semibold text-blue-600 hover:text-blue-700 flex items-center gap-1 transition-colors cursor-pointer group"
         >
-          ← Back to history
+          <span className="group-hover:-translate-x-1 transition-transform duration-200">←</span> Back to history
         </button>
         <h3 className="text-lg font-bold text-gray-800">Transaction Detail</h3>
         <dl className="space-y-2 text-sm">
@@ -64,18 +64,18 @@ export default function TransactionHistory() {
   }
 
   return (
-    <div className="bg-white rounded-2xl shadow-md overflow-hidden">
-      <h3 className="text-sm font-bold text-gray-700 px-4 py-3 border-b">
+    <div className="bg-white/90 backdrop-blur-xl rounded-3xl shadow-[0_8px_30px_rgb(0,0,0,0.04)] border border-white/50 overflow-hidden transition-all duration-300 hover:shadow-[0_8px_30px_rgb(0,0,0,0.08)]">
+      <h3 className="text-sm font-bold text-slate-800 px-6 py-4 border-b border-slate-100/60 bg-white/50">
         Transaction History
       </h3>
-      <ul className="divide-y divide-gray-100">
+      <ul className="divide-y divide-slate-100/60">
         {history.map(t => (
           <li key={t.id}>
             <button
               onClick={() => dispatch(selectTransaction(t))}
-              className="w-full text-left px-4 py-3 hover:bg-gray-50 transition-colors"
+              className="w-full text-left px-6 py-4 hover:bg-slate-50/80 transition-all duration-300 cursor-pointer group"
             >
-              <div className="flex justify-between items-center">
+              <div className="flex justify-between items-center group-hover:translate-x-1 transition-transform duration-300">
                 <div className="space-y-0.5">
                   <p className="text-xs text-gray-400 font-mono">{t.id.slice(0, 8)}…</p>
                   <p className="text-sm font-semibold text-gray-800">

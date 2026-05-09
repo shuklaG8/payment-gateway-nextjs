@@ -34,7 +34,7 @@ export default function CardPreview({ cardholderName, cardNumber, expiry, cardTy
 
     return (
         <div
-            className={`relative w-full max-w-sm mx-auto h-48 rounded-2xl bg-gradient-to-br ${CARD_COLORS[cardType]} text-white p-6 shadow-2xl select-none`}
+            className={`relative w-full max-w-sm mx-auto h-48 rounded-2xl bg-gradient-to-br ${CARD_COLORS[cardType]} text-white p-6 shadow-2xl shadow-slate-400/40 select-none transform transition-all duration-500 hover:scale-105 hover:shadow-blue-500/20 cursor-default`}
             aria-label="Card preview"
         >
             <div className="absolute top-4 right-5 text-xs font-bold tracking-widest opacity-90">

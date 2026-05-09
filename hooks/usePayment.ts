@@ -36,12 +36,11 @@ export function usePayment() {
 
         const timeoutId = setTimeout(() => controller.abort(), TIMEOUT_MS);
 
+        const parsedAmount = typeof values.amount === 'string' ? parseFloat(values.amount) : values.amount;
+
         const baseTransaction: Omit<Transaction, 'status' | 'failureReason'> = {
             id: transactionId,
-            amount:
-                typeof values.amount === 'string'
-                    ? parseFloat(values.amount)
-                    : values.amount,
+            amount: parsedAmount,
             currency: values.currency,
             timestamp: new Date().toISOString(),
             attempts: retryCount + 1,
@@ -56,7 +55,7 @@ export function usePayment() {
                 signal: controller.signal,
                 body: JSON.stringify({
                     transactionId,
-                    amount: values.amount,
+                    amount: parsedAmount,
                     currency: values.currency,
                 }),
             });

@@ -28,9 +28,9 @@ export default function StatusScreen({
   if (status === 'processing') {
     return (
       <div className="flex flex-col items-center gap-4 py-10" role="status" aria-live="polite">
-        <div className="w-14 h-14 rounded-full border-4 border-blue-200 border-t-blue-600 animate-spin" />
-        <p className="text-gray-600 font-medium">Processing your payment…</p>
-        <p className="text-xs text-gray-400">Please do not close this window.</p>
+        <div className="w-14 h-14 rounded-full border-4 border-blue-100 border-t-blue-600 animate-spin shadow-lg shadow-blue-500/20" />
+        <p className="text-slate-700 font-semibold text-lg animate-pulse">Processing your payment…</p>
+        <p className="text-xs text-slate-400">Please do not close this window.</p>
       </div>
     );
   }
@@ -38,18 +38,18 @@ export default function StatusScreen({
   if (status === 'success') {
     return (
       <div className="flex flex-col items-center gap-4 py-8 text-center">
-        <div className="w-16 h-16 rounded-full bg-green-100 flex items-center justify-center">
-          <svg className="w-8 h-8 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
+        <div className="w-20 h-20 rounded-full bg-green-100 flex items-center justify-center shadow-lg shadow-green-500/20 mb-2 transform transition-all duration-500 hover:scale-110">
+          <svg className="w-10 h-10 text-green-600 drop-shadow-sm" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M5 13l4 4L19 7" />
           </svg>
         </div>
-        <h2 ref={headingRef} tabIndex={-1} className="text-xl font-bold text-green-700 outline-none">
+        <h2 ref={headingRef} tabIndex={-1} className="text-2xl font-extrabold text-green-700 outline-none drop-shadow-sm">
           Payment Successful!
         </h2>
-        <p className="text-gray-500 text-sm">Your transaction has been completed.</p>
+        <p className="text-slate-500 text-sm">Your transaction has been completed.</p>
         <button
           onClick={onReset}
-          className="mt-2 px-6 py-2 bg-green-600 text-white rounded-xl text-sm font-semibold hover:bg-green-700 transition-colors"
+          className="mt-6 px-8 py-3 bg-gradient-to-r from-green-500 to-emerald-600 text-white rounded-xl text-sm font-bold shadow-lg shadow-green-500/30 hover:shadow-green-500/50 hover:-translate-y-0.5 active:translate-y-0 transition-all cursor-pointer"
         >
           Make Another Payment
         </button>
@@ -93,11 +93,11 @@ export default function StatusScreen({
           </p>
         )}
 
-        <div className="flex gap-3 mt-2 flex-wrap justify-center">
+        <div className="flex gap-4 mt-6 flex-wrap justify-center">
           {!exhausted ? (
             <button
               onClick={onRetry}
-              className="px-6 py-2 bg-blue-600 text-white rounded-xl text-sm font-semibold hover:bg-blue-700 transition-colors"
+              className="px-8 py-3 bg-gradient-to-r from-blue-600 to-indigo-600 text-white rounded-xl text-sm font-bold shadow-lg shadow-blue-500/30 hover:shadow-blue-500/50 hover:-translate-y-0.5 active:translate-y-0 transition-all cursor-pointer"
             >
               Retry Payment
             </button>
@@ -108,7 +108,7 @@ export default function StatusScreen({
           )}
           <button
             onClick={onReset}
-            className="px-6 py-2 border border-gray-300 text-gray-700 rounded-xl text-sm font-semibold hover:bg-gray-50 transition-colors"
+            className="px-8 py-3 bg-white border border-slate-200 text-slate-700 rounded-xl text-sm font-bold shadow-sm hover:bg-slate-50 hover:shadow-md hover:-translate-y-0.5 active:translate-y-0 transition-all cursor-pointer"
           >
             Start Over
           </button>
