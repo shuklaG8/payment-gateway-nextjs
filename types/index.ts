@@ -3,11 +3,11 @@ export type CardType = 'visa' | 'mastercard' | 'amex' | 'unknown';
 export type Currency = 'INR' | 'USD' | 'EUR' | 'GBP' | 'JPY';
 
 export interface PaymentFormValues {
-    cardHolderName: string;
+    cardholderName: string;
     cardNumber: string;
     expiry: string;
     cvv: string;
-    amount: number;
+    amount: number | string;
     currency: Currency;
 }
 
