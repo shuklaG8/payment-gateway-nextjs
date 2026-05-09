@@ -89,7 +89,7 @@ export default function StatusScreen({
 
         {!exhausted && (
           <p className="text-xs text-amber-700 bg-amber-50 border border-amber-200 rounded-lg px-3 py-1.5">
-            Attempt {retryCount} of {MAX_RETRIES} — {MAX_RETRIES - retryCount} retries remaining
+            Attempt {retryCount + 1} of {MAX_RETRIES + 1} — {MAX_RETRIES - retryCount} retries remaining
           </p>
         )}
 

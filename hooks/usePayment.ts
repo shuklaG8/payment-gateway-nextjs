@@ -12,7 +12,7 @@ import { PaymentFormValues, Transaction } from '@/types';
 import { GatewayResponse } from '@/types';
 import { AppDispatch, RootState } from '@/store/store';
 
-const MAX_RETRIES = 3;
+const MAX_RETRIES = 2;
 const TIMEOUT_MS = 6000;
 
 export function usePayment() {
